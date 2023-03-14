@@ -60,14 +60,13 @@ class Home extends StatelessWidget {
     return AppBar(
       backgroundColor: const Color.fromARGB(255, 255, 255, 255),
       foregroundColor: const Color.fromARGB(255, 236, 57, 148),
-      title: const Center(
-        child: Text(
-          "Scent of Spring",
-          style: TextStyle(
-            fontFamily: 'SquigglyFlowers',
-            fontSize: 30,
-            fontWeight: FontWeight.bold,
-          ),
+      centerTitle: true,
+      title: const Text(
+        "Scent of Spring",
+        style: TextStyle(
+          fontFamily: 'SquigglyFlowers',
+          fontSize: 30,
+          fontWeight: FontWeight.bold,
         ),
       ),
       leading: const Icon(Icons.sunny),
