@@ -37,78 +37,18 @@ class Home extends StatelessWidget {
                       ),
                     ],
                   ),
-                  Row(
-                    children: const [
-                      Text(
-                        "Roses",
-                        style: TextStyle(
-                            color: Color.fromARGB(255, 182, 11, 96),
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold),
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 180,
-                    child: ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      itemCount: roses.length,
-                      itemBuilder: (context, index) {
-                        return elementCreator(roses, index,
-                            const Color.fromARGB(255, 182, 11, 96));
-                      },
-                    ),
-                  ),
+                  elementCreator(
+                      roses, const Color.fromARGB(255, 182, 11, 96), "Roses"),
                   const SizedBox(
                     height: 10,
                   ),
-                  Row(
-                    children: const [
-                      Text(
-                        "Daisys",
-                        style: TextStyle(
-                            color: Color.fromARGB(255, 112, 80, 172),
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold),
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 180,
-                    child: ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      itemCount: daisys.length,
-                      itemBuilder: (context, index) {
-                        return elementCreator(daisys, index,
-                            const Color.fromARGB(255, 112, 80, 172));
-                      },
-                    ),
-                  ),
+                  elementCreator(daisys,
+                      const Color.fromARGB(255, 112, 80, 172), "Daisies"),
                   const SizedBox(
                     height: 10,
                   ),
-                  Row(
-                    children: const [
-                      Text(
-                        "Greens",
-                        style: TextStyle(
-                            color: Color.fromARGB(255, 81, 158, 138),
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold),
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 180,
-                    child: ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      itemCount: green.length,
-                      itemBuilder: (context, index) {
-                        return elementCreator(green, index,
-                            const Color.fromARGB(255, 81, 158, 138));
-                      },
-                    ),
-                  )
+                  elementCreator(
+                      green, const Color.fromARGB(255, 81, 158, 138), "green"),
                 ],
               ),
             )
@@ -120,12 +60,14 @@ class Home extends StatelessWidget {
     return AppBar(
       backgroundColor: const Color.fromARGB(255, 255, 255, 255),
       foregroundColor: const Color.fromARGB(255, 236, 57, 148),
-      title: const Text(
-        "Scent of Spring",
-        style: TextStyle(
-          fontFamily: 'SquigglyFlowers',
-          fontSize: 30,
-          fontWeight: FontWeight.bold,
+      title: const Center(
+        child: Text(
+          "Scent of Spring",
+          style: TextStyle(
+            fontFamily: 'SquigglyFlowers',
+            fontSize: 30,
+            fontWeight: FontWeight.bold,
+          ),
         ),
       ),
       leading: const Icon(Icons.sunny),
@@ -143,37 +85,62 @@ class Home extends StatelessWidget {
     );
   }
 
-  Widget elementCreator(List<Flower> list, index, Color color) {
-    return Padding(
-      padding: const EdgeInsets.only(right: 10),
-      child: Stack(
-        alignment: Alignment.bottomLeft,
-        children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(15),
-            child: Image.network(
-              list[index].imageurl,
-              fit: BoxFit.cover,
-              width: 250,
-              height: 160,
+  Widget elementCreator(
+      List<Flower> list, Color colorscheme, String groupName) {
+    return Column(
+      children: [
+        Row(
+          children: [
+            Text(
+              groupName,
+              style: TextStyle(
+                  color: colorscheme,
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold),
             ),
-          ),
-          ClipRRect(
-              borderRadius: BorderRadius.circular(15),
-              child: Container(
-                  color: color,
-                  child: Padding(
-                    padding: const EdgeInsets.all(10),
-                    child: Text(
-                      list[index].name,
-                      style: const TextStyle(
-                          color: Colors.white,
-                          fontFamily: 'StraightFlowers',
-                          fontSize: 10),
+          ],
+        ),
+        SizedBox(
+          height: 180,
+          child: ListView.builder(
+            scrollDirection: Axis.horizontal,
+            itemCount: list.length,
+            itemBuilder: (context, index) {
+              return Padding(
+                padding: const EdgeInsets.only(right: 10),
+                child: Stack(
+                  alignment: Alignment.bottomLeft,
+                  children: [
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(15),
+                      child: Image.network(
+                        list[index].imageurl,
+                        fit: BoxFit.cover,
+                        width: 250,
+                        height: 160,
+                      ),
                     ),
-                  ))),
-        ],
-      ),
+                    ClipRRect(
+                        borderRadius: BorderRadius.circular(15),
+                        child: Container(
+                            color: colorscheme,
+                            child: Padding(
+                              padding: const EdgeInsets.all(10),
+                              child: Text(
+                                list[index].name,
+                                style: const TextStyle(
+                                    color: Colors.white,
+                                    fontFamily: 'StraightFlowers',
+                                    fontSize: 10),
+                              ),
+                            ))),
+                  ],
+                ),
+              );
+            },
+          ),
+        )
+      ],
     );
   }
 }
